@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGDI - Transportes e Logística</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader">
+            <div class="truck-wrapper">
+                <div class="truck">
+                    <i class="fas fa-truck"></i>
+                </div>
+                <div class="road"></div>
+            </div>
+            <p>Carregando...</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header-transparent" id="header">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="#home">
+                    <img src="imgs/logo-m (1).png" alt="LOGDI" class="logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#quem-somos">Quem Somos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#area-atuacao">Área de Atuação</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#solucoes">Soluções</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contato">Contato</a>
+                        </li>
+                        <li class="nav-item ms-lg-3">
+                            <a class="btn btn-primary rounded-pill" href="#area-cliente">
+                                <i class="fas fa-user me-2"></i>Área do Cliente
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="particles-bg" id="particles-js"></div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <h1 class="display-4 fw-bold">
+                        Soluções em <span class="text-gradient">Logística</span> para o seu negócio
+                    </h1>
+                    <p class="lead mb-4">
+                        Oferecemos serviços de transporte e logística com eficiência, 
+                        rapidez e segurança para empresas de todos os portes.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#solucoes" class="btn btn-primary btn-lg rounded-pill me-3">
+                            <i class="fas fa-box me-2"></i>Nossas Soluções
+                        </a>
+                        <a href="#contato" class="btn btn-outline-light btn-lg rounded-pill">
+                            <i class="fas fa-headset me-2"></i>Fale Conosco
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-none d-lg-block" data-aos="fade-left">
+                    <div class="hero-image">
+                        <img src="imgs/carro-logdi-m.png" alt="Logística" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-wave">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#ffffff" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,224C672,213,768,171,864,149.3C960,128,1056,128,1152,149.3C1248,171,1344,213,1392,234.7L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Stats Counter -->
+    <section class="stats-counter py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-3 col-6">
+                    <div class="counter-box text-center" data-aos="fade-up">
+                        <i class="fas fa-truck-moving"></i>
+                        <h2 class="counter" data-target="1500">0</h2>
+                        <p>Veículos na Frota</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="counter-box text-center" data-aos="fade-up" data-aos-delay="100">
+                        <i class="fas fa-warehouse"></i>
+                        <h2 class="counter" data-target="15">0</h2>
+                        <p>Centros de Distribuição</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="counter-box text-center" data-aos="fade-up" data-aos-delay="200">
+                        <i class="fas fa-users"></i>
+                        <h2 class="counter" data-target="5000">0</h2>
+                        <p>Clientes Ativos</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="counter-box text-center" data-aos="fade-up" data-aos-delay="300">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <h2 class="counter" data-target="27">0</h2>
+                        <p>Estados Atendidos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="quem-somos" class="about-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="about-image position-relative">
+                        <img src="imgs/about-img.jpg" alt="Sobre nós" class="img-fluid rounded-4 shadow">
+                        <div class="experience-badge">
+                            <span class="number">13</span>
+                            <span class="text">Anos de<br>Experiência</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="section-title">
+                        <span class="subtitle">Quem Somos</span>
+                        <h2>Excelência em logística desde 2010</h2>
+                    </div>
+                    <div class="about-content">
+                        <p class="lead mb-4">
+                            A LOGDI é uma empresa especializada em soluções de transporte e 
+                            logística, fundada com o propósito de oferecer serviços de alta 
+                            qualidade que atendam às necessidades específicas de cada cliente.
+                        </p>
+                        <div class="features-grid">
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Equipe altamente qualificada</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Tecnologia de ponta</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Cobertura nacional</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Monitoramento 24/7</span>
+                            </div>
+                        </div>
+                        <a href="#contato" class="btn btn-primary btn-lg rounded-pill mt-4">
+                            <i class="fas fa-paper-plane me-2"></i>Entre em Contato
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Área de Atuação Section -->
+    <section id="area-atuacao" class="areas-section bg-light">
+        <div class="container">
+            <div class="section-title text-center mb-5" data-aos="fade-up">
+                <span class="subtitle">Onde Atuamos</span>
+                <h2>Nossa Presença Nacional</h2>
+            </div>
+            
+            <!-- Mapa Interativo -->
+            <div class="map-container mb-5" data-aos="zoom-in">
+                <div id="brazil-map"></div>
+                <div class="map-info">
+                    <h4>Selecione um estado para ver detalhes</h4>
+                    <div id="state-info"></div>
+                </div>
+            </div>
+
+            <!-- Bases Principais -->
+            <div class="swiper-container bases-slider">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="base-card" data-aos="fade-up">
+                            <div class="base-image">
+                                <img src="imgs/base-sp.jpg" alt="Base São Paulo">
+                            </div>
+                            <div class="base-content">
+                                <h4>São Paulo - SP</h4>
+                                <p>Matriz: Av. Marginal Direita do Tietê, 800</p>
+                                <ul class="base-features">
+                                    <li><i class="fas fa-warehouse"></i> 50.000m²</li>
+                                    <li><i class="fas fa-truck"></i> 500 veículos</li>
+                                    <li><i class="fas fa-users"></i> 1000 colaboradores</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Adicionar mais slides para outras bases -->
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Soluções Section -->
+    <section id="solucoes" class="solutions-section">
+        <div class="container">
+            <div class="section-title text-center mb-5" data-aos="fade-up">
+                <span class="subtitle">Nossas Soluções</span>
+                <h2>Serviços Especializados</h2>
+            </div>
+            
+            <div class="solutions-grid">
+                <div class="solution-card" data-aos="fade-up">
+                    <div class="card-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <h3>Logística Integrada</h3>
+                    <p>Integração completa de todos os processos logísticos, desde a coleta até a entrega final.</p>
+                    <a href="#" class="card-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
+                    <div class="hover-content">
+                        <ul>
+                            <li>Gestão de estoque</li>
+                            <li>Armazenagem</li>
+                            <li>Distribuição</li>
+                            <li>Controle em tempo real</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Adicionar mais cards de soluções -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contato" class="contact-section bg-light">
+        <div class="container">
+            <div class="section-title text-center mb-5" data-aos="fade-up">
+                <span class="subtitle">Contato</span>
+                <h2>Fale Conosco</h2>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-4" data-aos="fade-right">
+                    <div class="contact-info">
+                        <div class="info-card">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <h4>Endereço</h4>
+                            <p>Av. Paulista, 1000 - Bela Vista<br>São Paulo - SP, 01310-100</p>
+                        </div>
+                        <div class="info-card">
+                            <i class="fas fa-phone-alt"></i>
+                            <h4>Telefone</h4>
+                            <p>(11) 3000-0000</p>
+                        </div>
+                        <div class="info-card">
+                            <i class="fas fa-envelope"></i>
+                            <h4>E-mail</h4>
+                            <p>contato@logdi.com.br</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8" data-aos="fade-left">
+                    <form id="contactForm" class="contact-form">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Seu nome" required>
+                                    <label for="name">Seu Nome</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Seu e-mail" required>
+                                    <label for="email">Seu E-mail</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="Seu telefone">
+                                    <label for="phone">Seu Telefone</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <select class="form-select" id="subject" name="subject" required>
+                                        <option value="" selected disabled>Selecione</option>
+                                        <option value="orcamento">Orçamento</option>
+                                        <option value="duvidas">Dúvidas</option>
+                                        <option value="parceria">Parceria</option>
+                                        <option value="outro">Outro</option>
+                                    </select>
+                                    <label for="subject">Assunto</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control" id="message" name="message" placeholder="Sua mensagem" style="height: 150px" required></textarea>
+                                    <label for="message">Sua Mensagem</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary btn-lg rounded-pill w-100">
+                                    <i class="fas fa-paper-plane me-2"></i>Enviar Mensagem
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-section">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-lg-4">
+                        <div class="footer-about">
+                            <img src="imgs/logo-white.png" alt="LOGDI" class="footer-logo mb-4">
+                            <p>Somos uma empresa especializada em soluções logísticas completas, com foco na eficiência e na satisfação total dos nossos clientes.</p>
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="#"><i class="fab fa-youtube"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6">
+                        <div class="footer-links">
+                            <h4>Links Rápidos</h4>
+                            <ul>
+                                <li><a href="#home">Home</a></li>
+                                <li><a href="#quem-somos">Quem Somos</a></li>
+                                <li><a href="#area-atuacao">Área de Atuação</a></li>
+                                <li><a href="#solucoes">Soluções</a></li>
+                                <li><a href="#contato">Contato</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-links">
+                            <h4>Nossos Serviços</h4>
+                            <ul>
+                                <li><a href="#">Logística Integrada</a></li>
+                                <li><a href="#">Transporte Dedicado</a></li>
+                                <li><a href="#">Gestão de Estoques</a></li>
+                                <li><a href="#">Logística Reversa</a></li>
+                                <li><a href="#">Supply Chain</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="footer-newsletter">
+                            <h4>Newsletter</h4>
+                            <p>Inscreva-se para receber novidades e atualizações</p>
+                            <form id="newsletterForm">
+                                <div class="input-group">
+                                    <input type="email" class="form-control" placeholder="Seu e-mail" required>
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="fas fa-paper-plane"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <p class="mb-md-0">&copy; 2025 LOGDI. Todos os direitos reservados.</p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <p class="mb-0">Desenvolvido com <i class="fas fa-heart text-danger"></i> por <a href="#">DevTeam</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.3/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
