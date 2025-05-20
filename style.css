@@ -1,7 +1,7 @@
 :root {
-    --primary-color: #1E88E5;
-    --primary-dark: #1565C0;
-    --primary-light: #64B5F6;
+    --primary-color: #006e85;
+    --primary-dark: #164863;
+    --primary-light: #009693;
     --secondary-color: #0D47A1;
     --accent-color: #E3F2FD;
     --accent-light: #F8FDFF;
@@ -181,19 +181,8 @@ a:hover {
     bottom: 0;
     width: 100%;
     height: 4px;
-    background: var(--gray-medium);
+    background: var(--primary-light);
     overflow: hidden;
-}
-
-.road:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 200%;
-    height: 100%;
-    background: repeating-linear-gradient(90deg, var(--gray-medium), var(--gray-medium) 50px, var(--gray-light) 50px, var(--gray-light) 100px);
-    animation: road-move 2s linear infinite;
 }
 
 @keyframes truck-move {
@@ -224,13 +213,20 @@ a:hover {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.navbar-brand img {
-    height: 40px;
-    transition: var(--transition);
+.navbar-brand img.logo-light {
+    display: block;
 }
 
-.header-scrolled .navbar-brand img {
-    height: 35px;
+.navbar-brand img.logo-dark {
+    display: none;
+}
+
+.header-scrolled .navbar-brand img.logo-light {
+    display: none;
+}
+
+.header-scrolled .navbar-brand img.logo-dark {
+    display: block;
 }
 
 .nav-link {
@@ -1013,7 +1009,7 @@ a:hover {
     padding-left: 10px;
 }
 
-.footer-newsletter h4 {
+.footer-coverage h4 {
     margin-bottom: 25px;
     position: relative;
     padding-bottom: 10px;
@@ -1021,7 +1017,7 @@ a:hover {
     font-size: 1.3rem;
 }
 
-.footer-newsletter h4::after {
+.footer-coverage h4::after {
     content: '';
     position: absolute;
     left: 0;
@@ -1031,43 +1027,118 @@ a:hover {
     background-color: var(--accent-color);
 }
 
-.footer-newsletter p {
+.footer-coverage p {
     color: rgba(255, 255, 255, 0.8);
     margin-bottom: 20px;
 }
 
-.footer-newsletter .input-group {
+.coverage-map {
     background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 50px;
-    padding: 5px;
+    border-radius: var(--border-radius);
+    padding: 15px;
+    height: 120px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 15px;
 }
 
-.footer-newsletter .form-control {
-    background-color: transparent;
-    border: none;
+.road-animation {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.road {
+    position: relative;
+    width: 90%;
+    height: 30px;
+    background-color: var(--primary-dark);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.road-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: repeating-linear-gradient(90deg, 
+        var(--gray-dark), 
+        var(--gray-dark) 20px, 
+        transparent 20px, 
+        transparent 40px);
+    transform: translateY(-50%);
+}
+
+.static-line {
+    animation: none !important;
+    background-position: 0 0 !important;
+}
+
+.truck-icon {
+    position: absolute;
     color: var(--text-light);
-    padding: 10px 20px;
-    border-radius: 50px 0 0 50px;
+    font-size: 24px;
+    top: 50%;
+    opacity: 0;
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.3));
+    z-index: 2;
+    animation: truckMove 6s infinite linear;
 }
 
-.footer-newsletter .form-control::placeholder {
-    color: rgba(255, 255, 255, 0.6);
+.coverage-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.footer-newsletter .form-control:focus {
-    box-shadow: none;
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255, 255, 255, 0.8);
 }
 
-.footer-newsletter .btn {
-    border-radius: 50px;
-    padding: 10px 20px;
-    background-color: var(--accent-color);
-    color: var(--primary-dark);
-    border: none;
+.stat-item i {
+    color: var(--accent-color);
+    font-size: 16px;
 }
 
-.footer-newsletter .btn:hover {
-    background-color: var(--text-light);
+@keyframes truckMove {
+    0% { 
+        left: -5%; 
+        opacity: 0;
+        transform: translateY(-50%);
+    }
+    10% {
+        left: 5%;
+        opacity: 0.3;
+        transform: translateY(-50%);
+    }
+    20% {
+        left: 15%;
+        opacity: 1;
+        transform: translateY(-50%);
+    }
+    70% { 
+        left: 75%;
+        opacity: 1;
+        transform: translateY(-50%);
+    }
+    85% {
+        left: 85%;
+        opacity: 0.3;
+        transform: translateY(-50%);
+    }
+    100% { 
+        left: 105%; 
+        opacity: 0;
+        transform: translateY(-50%);
+    }
 }
 
 .footer-bottom {

@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const hero = document.querySelector('.hero');
     
     function updateHeader() {
-        if (window.scrollY > 50) {
+        if (window.scrollY > 100) {
             header.classList.add('header-scrolled');
         } else {
             header.classList.remove('header-scrolled');
@@ -335,11 +335,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Newsletter Form
-    const newsletterForm = document.getElementById('newsletterForm');
+    // Rastreador Rápido
+    const trackerForm = document.getElementById('trackerForm');
+    const trackingStatus = document.getElementById('trackingStatus');
     
-    if (newsletterForm) {
-        newsletterForm.addEventListener('submit', function(e) {
+    if (trackerForm) {
+        trackerForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
             const input = this.querySelector('input');
@@ -355,16 +356,33 @@ document.addEventListener('DOMContentLoaded', function() {
             button.disabled = true;
             input.disabled = true;
             
-            // Simulate form submission
+            // Simular rastreamento (em produção, isso seria uma chamada de API real)
             setTimeout(() => {
                 button.innerHTML = '<i class="fas fa-check"></i>';
                 
+                // Mostrar resultado do rastreamento
+                if (trackingStatus) {
+                    trackingStatus.classList.remove('d-none');
+                    
+                    // Gerar um status aleatório para demonstração
+                    const statusOptions = [
+                        { status: 'Em trânsito', location: 'Centro de Distribuição - São Paulo' },
+                        { status: 'Saiu para entrega', location: 'Unidade local - Destino' },
+                        { status: 'Aguardando retirada', location: 'Ponto de coleta - Destino' },
+                        { status: 'Em processamento', location: 'Centro de Triagem' }
+                    ];
+                    
+                    const randomStatus = statusOptions[Math.floor(Math.random() * statusOptions.length)];
+                    
+                    trackingStatus.querySelector('.tracking-status').textContent = randomStatus.status;
+                    trackingStatus.querySelector('.tracking-location').textContent = randomStatus.location;
+                }
+                
                 setTimeout(() => {
-                    this.reset();
                     button.innerHTML = originalIcon;
                     button.disabled = false;
                     input.disabled = false;
-                }, 2000);
+                }, 3000);
             }, 1500);
         });
     }
