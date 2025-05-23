@@ -75,7 +75,22 @@ const server = http.createServer((req, res) => {
 });
 
 const PORT = 8000;
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
+    const interfaces = require('os').networkInterfaces();
+    const addresses = [];
+    
+    for (const k in interfaces) {
+        for (const addr of interfaces[k]) {
+            if (addr.family === 'IPv4' && !addr.internal) {
+                addresses.push(addr.address);
+            }
+        }
+    }
+    
     console.log(`Servidor rodando em http://localhost:${PORT}`);
+    console.log('Endereços IP para acesso na rede local:');
+    addresses.forEach(addr => {
+        console.log(`http://${addr}:${PORT}`);
+    });
     console.log(`Diretório base: ${__dirname}`);
 });

@@ -26,14 +26,13 @@
                 </div>
                 <div class="road"></div>
             </div>
-            <p>Carregando...</p>
         </div>
     </div>
     <header class="header-transparent" id="header">
         <nav class="navbar navbar-expand-lg">
             <div class="container">
                 <a class="navbar-brand" href="#home">
-                    <img src="imgs/logo-m (1).png" alt="Logo" class="logo-light">
+                    <img src="imgs/logo-m-branca.png" alt="Logo" class="logo-light">
                     <img src="imgs/logo-m-1.png" alt="Logo" class="logo-dark">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -119,7 +118,7 @@
                             <i class="fas fa-shield-alt"></i>
                         </div>
                         <h3>Segurança Total</h3>
-                        <p>Monitoramento 24h e rastreamento em tempo real de toda a frota.</p>
+                        <p>Monitoramento 24h e rastreamento em tempo real de todos os veículos.</p>
                     </div>
                 </div>
                 <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
@@ -147,21 +146,21 @@
                 <div class="col-md-3 col-6">
                     <div class="counter-box text-center" data-aos="fade-up" data-aos-delay="100">
                         <i class="fas fa-warehouse"></i>
-                        <h2 class="counter" data-target="48">0</h2>
+                        <h2 class="counter" data-target="53">0</h2>
                         <p>Centros de Distribuição</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-6">
                     <div class="counter-box text-center" data-aos="fade-up" data-aos-delay="200">
                         <i class="fas fa-users"></i>
-                        <h2 class="counter" data-target="5000">0</h2>
+                        <h2 class="counter" data-target="2000" data-prefix="+">0</h2>
                         <p>Clientes Ativos</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-6">
                     <div class="counter-box text-center" data-aos="fade-up" data-aos-delay="300">
                         <i class="fas fa-map-marked-alt"></i>
-                        <h2 class="counter" data-target="19">0</h2>
+                        <h2 class="counter" data-target="22">0</h2>
                         <p>Estados Atendidos</p>
                     </div>
                 </div>
@@ -223,46 +222,24 @@
                 <span class="subtitle">Onde Atuamos</span>
                 <h2>Nossa Presença Nacional</h2>
                 <p class="section-description">
-                    Estamos presentes em 19 estados brasileiros, oferecendo soluções logísticas com prazos competitivos.
+                    Estamos presentes em 22 estados brasileiros, oferecendo soluções logísticas com prazos competitivos.
                 </p>
             </div>
             <div class="map-container" data-aos="zoom-in">
                 <div class="row align-items-start">
                     <div class="col-lg-5">
-                        <div class="brazil-map">
-                            <img src="imgs/mapa-1.jpg" alt="Mapa do Brasil" class="img-fluid">
+                        <div class="brazil-map" id="brazil-map">
+                            <!-- SVG do mapa será inserido aqui via JavaScript -->
                         </div>
                     </div>
                     <div class="col-lg-7">
-                        <div class="state-selector">
-                            <div class="form-floating mb-4">
-                                <select class="form-select" id="stateSelect" aria-label="Selecione um estado">
-                                    <option value="" selected disabled>Selecione um estado</option>
-                                    <option value="PA">Pará</option>
-                                    <option value="MA">Maranhão</option>
-                                    <option value="PI">Piauí</option>
-                                    <option value="CE">Ceará</option>
-                                    <option value="RN">Rio Grande do Norte</option>
-                                    <option value="PB">Paraíba</option>
-                                    <option value="PE">Pernambuco</option>
-                                    <option value="AL">Alagoas</option>
-                                    <option value="SE">Sergipe</option>
-                                    <option value="BA">Bahia</option>
-                                    <option value="TO">Tocantins</option>
-                                    <option value="GO">Goiás</option>
-                                    <option value="DF">Distrito Federal</option>
-                                    <option value="ES">Espírito Santo</option>
-                                    <option value="MG">Minas Gerais</option>
-                                    <option value="RS">Rio Grande do Sul</option>
-                                </select>
-                            </div>
-                            
-                            <div class="state-info-display" id="stateInfo">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="state-name mb-4">Selecione um estado para ver os prazos</h4>
-                                        <div class="delivery-info">
-                                            <!-- The infos will be insert here with JavaScript -->
+                        <div class="state-info-display" id="stateInfo">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="state-name mb-4">Selecione um estado no mapa para ver os prazos</h4>
+                                    <div class="delivery-info" id="deliveryInfo">
+                                        <div class="delivery-item text-center default-message">
+                                            <p>Selecione um estado para ver as informações de entrega.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -340,7 +317,7 @@
                         <i class="fas fa-recycle"></i>
                     </div>
                     <h3>Logística Reversa</h3>
-                    <p>Soluções completas para retorno de produtos, embalagens e materiais recicláveis.</p>
+                    <p>Soluções completas para retorno de produtos.</p>
                     <a href="#" class="card-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
                     <div class="hover-content">
                         <ul>
@@ -519,7 +496,7 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-6">
                         <div class="footer-info">
-                            <img src="imgs/logo-m (1).png" alt="LOGDI" class="footer-logo">
+                            <img src="imgs/logo-m-branca.png" alt="LOGDI" class="footer-logo">
                             <p>
                                 Soluções em transporte e logística para empresas de todos os portes, com eficiência, rapidez e segurança.
                             </p>
@@ -558,14 +535,6 @@
                         <div class="footer-coverage">
                             <h4>Nossa Cobertura</h4>
                             <p>Redes de entrega integrada em todo o Brasil.</p>
-                            <div class="coverage-map">
-                                <div class="road-animation">
-                                    <div class="road">
-                                        <div class="road-line static-line"></div>
-                                    </div>
-                                    <i class="fas fa-truck-moving truck-icon"></i>
-                                </div>
-                            </div>
                             <div class="coverage-stats">
                                 <div class="stat-item">
                                     <i class="fas fa-clock"></i>
@@ -584,7 +553,7 @@
                         <p class="mb-md-0">&copy; 2025 LOGDI. Todos os direitos reservados.</p>
                     </div>
                     <div class="col-md-6 text-md-end">
-                        <p class="mb-0">Desenvolvido com <i class="fas fa-heart text-danger"></i> por LOGDI</p>
+                        <p class="mb-0">Desenvolvido por Equipe de TI LOGDI</p>
                     </div>
                 </div>
             </div>

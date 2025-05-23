@@ -607,6 +607,10 @@ a:hover {
 .brazil-map {
     text-align: center;
     margin-bottom: 30px;
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
 }
 
 .brazil-map img {
@@ -615,9 +619,39 @@ a:hover {
     border-radius: var(--border-radius);
 }
 
+.brazil-map svg {
+    width: 100%;
+    height: auto;
+}
+
+/* Estilos dos estados no mapa */
+.estado, .state {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    stroke: var(--gray-dark);
+    stroke-width: 0.5px;
+    fill: var(--accent-color) !important;
+    position: relative;
+    z-index: 1;
+}
+
+.estado:hover, .state:hover {
+    opacity: 0.8;
+    fill: var(--primary-dark) !important;
+    z-index: 2;
+    transition: all 0.3s ease !important;
+}
+
+/* Estado selecionado */
+.estado-selecionado {
+    fill: var(--primary-color) !important;
+    position: relative;
+    z-index: 10 !important;
+    pointer-events: none;
+}
+
 .state-selector {
     background-color: var(--text-light);
-    border-radius: var(--border-radius);
 }
 
 .form-select, .form-control {
@@ -636,6 +670,8 @@ a:hover {
 
 .state-info-display {
     margin-top: 20px;
+    height: 100%;
+    min-height: 300px;
 }
 
 .state-info-display .card {
@@ -643,6 +679,7 @@ a:hover {
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
     overflow: hidden;
+    height: 100%;
 }
 
 .state-info-display .card-body {
@@ -654,12 +691,15 @@ a:hover {
     font-size: 1.5rem;
     margin-bottom: 20px;
     font-weight: 700;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 15px;
 }
 
 .delivery-info {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    margin-top: 20px;
 }
 
 .delivery-item {
@@ -667,6 +707,13 @@ a:hover {
     padding: 15px 20px;
     border-radius: var(--border-radius);
     border-left: 4px solid var(--primary-color);
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.delivery-item:last-child {
+    border-bottom: none;
 }
 
 .delivery-item h5 {
@@ -685,6 +732,26 @@ a:hover {
 .delivery-item p i {
     color: var(--primary-color);
     margin-right: 10px;
+}
+
+.delivery-title {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.delivery-days {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.no-delivery-message {
+    font-size: 1.1rem;
+    color: var(--danger);
+    font-weight: 600;
+    text-align: center;
+    margin-top: 30px;
 }
 
 .solutions-section {
@@ -1336,15 +1403,91 @@ a:hover {
     }
 }
 
-@media (min-width: 1400px) {
+/* Ajustes para telas maiores */
+@media (min-width: 1367px) {
+    .container {
+        max-width: 1320px;
+    }
+
+    html {
+        font-size: 17px;
+    }
+
     .hero {
-        padding: 130px 0 250px; /* Mais padding para telas maiores */
+        min-height: 100vh;
+        padding: 180px 0 300px;
+    }
+
+    .hero h1 {
+        font-size: 3.5rem;
+    }
+
+    .hero p {
+        font-size: 1.3rem;
+    }
+
+    .section-title h2 {
+        font-size: 3rem;
+    }
+
+    .feature-card {
+        padding: 50px 40px;
+    }
+
+    .counter-box {
+        padding: 40px 30px;
+    }
+
+    .counter {
+        font-size: 3rem;
+    }
+
+    .counter-box p {
+        font-size: 1.2rem;
+    }
+
+    .solution-card {
+        padding: 50px 40px;
+    }
+
+    .contact-form-card {
+        padding: 50px;
     }
 }
 
 @media (min-width: 1600px) {
+    .container {
+        max-width: 1520px;
+    }
+
+    html {
+        font-size: 18px;
+    }
+
     .hero {
-        padding: 130px 0 300px; /* Ainda mais padding para telas muito grandes */
+        padding: 200px 0 350px;
+    }
+
+    .hero h1 {
+        font-size: 4rem;
+    }
+
+    .section-title h2 {
+        font-size: 3.5rem;
+    }
+}
+
+@media (min-width: 1920px) {
+    .container {
+        max-width: 1800px;
+    }
+
+    html {
+        font-size: 19px;
+    }
+
+    .hero {
+        padding: 220px 0 400px;
     }
 }
 
