@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     'use strict';
-    
+
     // Preloader
     const preloader = document.getElementById('preloader');
     window.addEventListener('load', function() {
@@ -10,25 +10,41 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 500);
     });
 
-    // Header Effect
+    // Efeito do cabeçalho ao rolar a página
+    let lastScrollTop = 0;
     const header = document.querySelector('.header-transparent');
-    const hero = document.querySelector('.hero');
     
     function updateHeader() {
-        if (window.scrollY > 100) {
-            header.classList.add('header-scrolled');
+        const currentScroll = window.scrollY;
+        
+        if (currentScroll > lastScrollTop && currentScroll > 100) {
+            header.style.transform = 'translateY(-100%)';
+            header.style.transition = 'transform 0.3s ease-in-out';
         } else {
-            header.classList.remove('header-scrolled');
+            header.style.transform = 'translateY(0)';
+            if (currentScroll > 100) {
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('header-scrolled');
+            }
         }
+        
+        lastScrollTop = currentScroll;
     }
     
-    // Initialize header state
-    updateHeader();
-    
-    // Update header on scroll
     window.addEventListener('scroll', updateHeader);
+    
+    document.addEventListener('mousemove', (e) => {
+        // Exibe o cabeçalho quando o mouse está próximo ao topo da página
+        if (e.clientY <= 100) { 
+            header.style.transform = 'translateY(0)';
+            if (window.scrollY > 100) {
+                header.classList.add('header-scrolled');
+            }
+        }
+    });
 
-    // Initialize AOS (Animate on Scroll)
+    // Inicia a biblioteca AOS (Animate on Scroll)
     AOS.init({
         duration: 800,
         easing: 'ease-in-out',
@@ -37,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
         offset: 50
     });
 
-    // Counter Animation
+    // Animação de contador
     const counters = document.querySelectorAll('.counter');
     
     function startCounter(counter) {
@@ -45,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const prefix = counter.getAttribute('data-prefix') || '';
         let count = 0;
         const duration = 2000; // Duração total da animação em milissegundos
-        const frames = 60; // Frames por segundo
+        const frames = 60; // Quadros por segundo para a animação
         const increment = target / (duration / (1000 / frames));
 
         const updateCount = () => {
@@ -61,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
         updateCount();
     }
 
-    // Use Intersection Observer for counters
+    // Observador para iniciar a animação do contador quando visível
     const counterObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -76,356 +92,200 @@ document.addEventListener('DOMContentLoaded', function() {
         counterObserver.observe(counter);
     });
 
-    // Mapa Interativo do Brasil
-    // Carregar o SVG do mapa
+    // Carrega o mapa do Brasil em SVG e o insere na página
     fetch('mapa-brasil.svg')
         .then(response => response.text())
         .then(svgData => {
-            // Adicionar IDs aos estados que não têm
-            svgData = adicionarIdsAosEstados(svgData);
-            
-            // Inserir o SVG modificado no DOM
-            document.getElementById('brazil-map').innerHTML = svgData;
-            
-            // Configurar os estados após carregar o SVG
-            setTimeout(configurarEstados, 100);
+            const mapContainer = document.getElementById('brazil-map');
+            const pointsContainer = document.getElementById('location-points');
+
+            mapContainer.innerHTML = svgData;
+            mapContainer.appendChild(pointsContainer);
+
+            configurarEstados();
         })
         .catch(error => console.error('Erro ao carregar o mapa:', error));
-
-    // Função para adicionar IDs aos estados que não têm
-    function adicionarIdsAosEstados(svgData) {
-        // Lista de estados e suas siglas
-        const estados = [
-            { id: "AC", nome: "Acre" },
-            { id: "AL", nome: "Alagoas" },
-            { id: "AM", nome: "Amazonas" },
-            { id: "AP", nome: "Amapá" },
-            { id: "BA", nome: "Bahia" },
-            { id: "CE", nome: "Ceará" },
-            { id: "DF", nome: "Distrito Federal" },
-            { id: "ES", nome: "Espírito Santo" },
-            { id: "GO", nome: "Goiás" },
-            { id: "MA", nome: "Maranhão" },
-            { id: "MG", nome: "Minas Gerais" },
-            { id: "MS", nome: "Mato Grosso do Sul" },
-            { id: "MT", nome: "Mato Grosso" },
-            { id: "PA", nome: "Pará" },
-            { id: "PB", nome: "Paraíba" },
-            { id: "PE", nome: "Pernambuco" },
-            { id: "PI", nome: "Piauí" },
-            { id: "PR", nome: "Paraná" },
-            { id: "RJ", nome: "Rio de Janeiro" },
-            { id: "RN", nome: "Rio Grande do Norte" },
-            { id: "RO", nome: "Rondônia" },
-            { id: "RR", nome: "Roraima" },
-            { id: "RS", nome: "Rio Grande do Sul" },
-            { id: "SC", nome: "Santa Catarina" },
-            { id: "SE", nome: "Sergipe" },
-            { id: "SP", nome: "São Paulo" },
-            { id: "TO", nome: "Tocantins" }
-        ];
         
-        // Verificar quais estados já têm ID no SVG
-        const estadosComId = [];
-        const regex = /id="([A-Z]{2})"/g;
-        let match;
-        
-        while ((match = regex.exec(svgData)) !== null) {
-            estadosComId.push(match[1]);
-        }
-        
-        // Contar os elementos polygon com classe "state"
-        const polygonsCount = (svgData.match(/<polygon class="state"/g) || []).length;
-        
-        // Se já temos todos os estados com ID, retornar o SVG original
-        if (estadosComId.length >= estados.length) {
-            return svgData;
-        }
-        
-        // Adicionar IDs aos estados que não têm
-        let index = 0;
-        for (const estado of estados) {
-            if (!estadosComId.includes(estado.id)) {
-                // Encontrar o próximo polygon sem ID
-                const pattern = new RegExp(`<polygon class="state"([^>]*)>`, 'g');
-                let count = 0;
-                
-                svgData = svgData.replace(pattern, function(match) {
-                    if (count < index) {
-                        count++;
-                        return match;
-                    }
-                    
-                    if (count === index) {
-                        count++;
-                        index++;
-                        return `<polygon id="${estado.id}" class="state"$1>`;
-                    }
-                    
-                    return match;
-                });
-            }
-        }
-        
-        return svgData;
-    }
-
-    // Dados dos estados com entrega
+    // Dados dos estados que possuem entrega
     const estadosComEntrega = {
-        "AC": false,
-        "AL": true,
-        "AM": false,
-        "AP": false,
-        "BA": true,
-        "CE": true,
-        "DF": true,
-        "ES": true,
-        "GO": true,
-        "MA": true,
-        "MG": true,
-        "MS": true,
-        "MT": true,
-        "PA": true,
-        "PB": true,
-        "PE": true,
-        "PI": true,
-        "PR": true,
-        "RJ": true,
-        "RN": true,
-        "RO": false,
-        "RR": false,
-        "RS": true,
-        "SC": true,
-        "SE": true,
-        "SP": true,
-        "TO": true
+        "AC": false, "AL": true, "AM": false, "AP": false, "BA": true, "CE": true,
+        "DF": true, "ES": true, "GO": true, "MA": true, "MG": true, "MS": true,
+        "MT": true, "PA": true, "PB": true, "PE": true, "PI": true, "PR": true,
+        "RJ": true, "RN": true, "RO": false, "RR": false, "RS": true, "SC": true,
+        "SE": true, "SP": true, "TO": true
     };
 
-    // Dados de prazo de entrega para capital e interior
+    // Prazos de entrega para cada estado
     const prazoEntrega = {
-        "PA": { capital: "09 a 10 dias úteis", interior: "13 a 15 dias úteis" },
-        "MA": { capital: "09 a 10 dias úteis", interior: "13 a 15 dias úteis" },
-        "PI": { capital: "09 a 10 dias", interior: "13 a 15 dias" },
+        "PA": { capital: "09 a 11 dias úteis", interior: "13 a 15 dias úteis" },
+        "MA": { capital: "09 a 10 dias úteis", interior: "15 a 18 dias úteis" },
+        "PI": { capital: "09 a 10 dias úteis", interior: "11 a 13 dias úteis" },
         "CE": { capital: "09 a 10 dias úteis", interior: "11 a 13 dias úteis" },
-        "RN": { capital: "09 a 10 dias úteis", interior: "11 a 13 dias" },
-        "PB": { capital: "08 a 09 dias úteis", interior: "09 a 12 dias" },
-        "PE": { capital: "08 a 09 dias úteis", interior: "10 a 12 dias" },
-        "AL": { capital: "08 a 09 dias úteis", interior: "10 a 12 dias" },
-        "SE": { capital: "07 a 08 dias úteis", interior: "10 a 12 dias" },
-        "BA": { capital: "07 a 08 dias úteis", interior: "10 a 12 dias" },
-        "TO": { capital: "08 a 09 dias úteis", interior: "10 a 12 dias" },
-        "GO": { capital: "04 a 05 dias úteis", interior: "05 a 07 dias" },
-        "DF": { capital: "04 a 06 dias úteis", interior: "05 a 07 dias" },
-        "ES": { capital: "04 a 06 dias úteis", interior: "05 a 07 dias" },
-        "MG": { capital: "03 a 04 dias úteis", interior: "05 a 07 dias" },
-        "RS": { capital: "03 a 04 dias úteis", interior: "04 a 06 dias" },
-        "MT": { capital: "04 a 05 dias úteis", interior: "06 a 08 dias" },
-        "MS": { capital: "03 a 04 dias úteis", interior: "05 a 07 dias" },
-        "PR": { capital: "02 a 03 dias úteis", interior: "03 a 05 dias" },
-        "SC": { capital: "02 a 03 dias úteis", interior: "03 a 05 dias" },
-        "RJ": { capital: "02 a 03 dias úteis", interior: "03 a 04 dias" },
-        "SP": { capital: "01 a 02 dias úteis", interior: "02 a 03 dias" }
+        "RN": { capital: "09 a 10 dias úteis", interior: "11 a 13 dias úteis" },
+        "PB": { capital: "09 a 10 dias úteis", interior: "13 a 15 dias úteis" },
+        "PE": { capital: "09 a 10 dias úteis", interior: "11 a 13 dias úteis" },
+        "AL": { capital: "09 a 10 dias úteis", interior: "10 a 12 dias úteis" },
+        "SE": { capital: "09 a 10 dias úteis", interior: "12 a 14 dias úteis" },
+        "BA": { capital: "09 a 10 dias úteis", interior: "13 a 15 dias úteis" },
+        "TO": { capital: "09 a 10 dias úteis", interior: "15 a 17 dias úteis" },
+        "GO": { capital: "04 a 06 dias úteis", interior: "09 a 10 dias úteis" },
+        "DF": { capital: "04 a 06 dias úteis", interior: "05 a 07 dias úteis" },
+        "ES": { capital: "04 a 06 dias úteis", interior: "06 a 08 dias úteis" },
+        "MG": { capital: "07 a 08 dias úteis", interior: "15 a 17 dias úteis" },
+        "RS": { capital: "05 a 06 dias úteis", interior: "06 a 08 dias úteis" },
+        "MT": { capital: "07 a 08 dias úteis", interior: "10 a 12 dias úteis" },
+        "MS": { capital: "07 a 08 dias úteis", interior: "09 a 11 dias úteis" },
+        "PR": { capital: "02 a 04 dias úteis", interior: "08 a 10 dias úteis" },
+        "SC": { capital: "02 a 03 dias úteis", interior: "04 a 06 dias úteis" },
+        "RJ": { capital: "04 a 05 dias úteis", interior: "05 a 07 dias úteis" },
+        "SP": { capital: "04 a 05 dias úteis", interior: "09 a 11 dias úteis" }
     };
 
     // Nomes completos dos estados
     const nomeEstados = {
-        "AC": "ACRE",
-        "AL": "ALAGOAS",
-        "AM": "AMAZONAS",
-        "AP": "AMAPÁ",
-        "BA": "BAHIA",
-        "CE": "CEARÁ",
-        "DF": "DISTRITO FEDERAL",
-        "ES": "ESPÍRITO SANTO",
-        "GO": "GOIÁS",
-        "MA": "MARANHÃO",
-        "MG": "MINAS GERAIS",
-        "MS": "MATO GROSSO DO SUL",
-        "MT": "MATO GROSSO",
-        "PA": "PARÁ",
-        "PB": "PARAÍBA",
-        "PE": "PERNAMBUCO",
-        "PI": "PIAUÍ",
-        "PR": "PARANÁ",
-        "RJ": "RIO DE JANEIRO",
-        "RN": "RIO GRANDE DO NORTE",
-        "RO": "RONDÔNIA",
-        "RR": "RORAIMA",
-        "RS": "RIO GRANDE DO SUL",
-        "SC": "SANTA CATARINA",
-        "SE": "SERGIPE",
-        "SP": "SÃO PAULO",
-        "TO": "TOCANTINS"
+        "AC": "ACRE", "AL": "ALAGOAS", "AM": "AMAZONAS", "AP": "AMAPÁ", "BA": "BAHIA",
+        "CE": "CEARÁ", "DF": "DISTRITO FEDERAL", "ES": "ESPÍRITO SANTO", "GO": "GOIÁS",
+        "MA": "MARANHÃO", "MG": "MINAS GERAIS", "MS": "MATO GROSSO DO SUL", "MT": "MATO GROSSO",
+        "PA": "PARÁ", "PB": "PARAÍBA", "PE": "PERNAMBUCO", "PI": "PIAUÍ", "PR": "PARANÁ",
+        "RJ": "RIO DE JANEIRO", "RN": "RIO GRANDE DO NORTE", "RO": "RONDÔNIA", "RR": "RORAIMA",
+        "RS": "RIO GRANDE DO SUL", "SC": "SANTA CATARINA", "SE": "SERGIPE", "SP": "SÃO PAULO", "TO": "TOCANTINS"
     };
 
-    // Função para configurar os estados no mapa
+    // Configura as classes e eventos de clique para cada estado no mapa SVG
     function configurarEstados() {
-        // Selecionar todos os elementos de estado no SVG
-        const estados = document.querySelectorAll('.state');
+        const elementos = document.querySelectorAll('.state');
         
-        // Configurar cada estado
-        estados.forEach(estado => {
-            const sigla = estado.id.toUpperCase();
+        elementos.forEach(elemento => {
+            const sigla = elemento.id ? elemento.id.toUpperCase() : null;
             
-            // Remover classes existentes primeiro
-            estado.classList.remove('com-entrega', 'sem-entrega');
-            
-            // Aplicar classe com base na disponibilidade de entrega
-            if (estadosComEntrega[sigla]) {
-                estado.classList.add('com-entrega');
-            } else {
-                estado.classList.add('sem-entrega');
+            // Se o elemento não for um estado válido, adiciona uma classe e o ignora
+            if (!sigla || !nomeEstados[sigla]) {
+                elemento.classList.add('area-nao-estado');
+                return; 
             }
             
-            // Remover qualquer estilo inline que possa estar afetando o hover
-            estado.removeAttribute('style');
+            elemento.classList.remove('com-entrega', 'sem-entrega');
             
-            // Adicionar evento de clique
-            estado.addEventListener('click', function(e) {
-                e.preventDefault(); // Prevenir comportamento padrão
+            if (estadosComEntrega[sigla]) {
+                elemento.classList.add('com-entrega');
+            } else {
+                elemento.classList.add('sem-entrega');
+            }
+            
+            elemento.removeAttribute('style');
+            
+            elemento.addEventListener('click', function() {
                 mostrarInformacoesEstado(sigla);
+                
+                const stateSelect = document.getElementById('stateSelect');
+                if (stateSelect) {
+                    stateSelect.value = sigla;
+                }
             });
         });
-    }
 
-    document.addEventListener('click', function(event) {
-        const mapContainer = document.querySelector('.brazil-map');
-        const clickedElement = event.target;
-        const isState = clickedElement.classList.contains('state');
-        const isSvg = clickedElement.tagName === 'svg' || clickedElement.tagName === 'SVG';
-        
-        // Se o clique foi em um estado, não fazemos nada aqui
-        if (isState) {
-            return;
-        }
+        // Configura o evento de mudança no <select> de estados
+        const stateSelect = document.getElementById('stateSelect');
+        if (stateSelect) {
+            stateSelect.addEventListener('change', function(e) {
+                const selectedState = e.target.value;
+                if (selectedState) {
+                    document.querySelectorAll('.state').forEach(estado => {
+                        estado.classList.remove('estado-selecionado');
+                    });
 
-        // Se o clique foi fora do mapa OU no SVG do mapa (mas não em um estado)
-        if (!mapContainer.contains(clickedElement) || isSvg || clickedElement === mapContainer) {
-            // Remove a classe de seleção de todos os estados
-            const estados = document.querySelectorAll('.state');
-            estados.forEach(estado => {
-                estado.classList.remove('estado-selecionado');
-        });
+                    const estadoSelecionado = document.getElementById(selectedState);
+                    if (estadoSelecionado) {
+                        estadoSelecionado.classList.add('estado-selecionado');
+                    }
 
-        // Limpa as informações de entrega
-        const stateInfoTitle = document.querySelector('.state-name');
-        const deliveryInfo = document.getElementById('deliveryInfo');
-        
-        if (stateInfoTitle) {
-            stateInfoTitle.textContent = 'Selecione um estado no mapa para ver os prazos';
-        }
-        
-        if (deliveryInfo) {
-            deliveryInfo.innerHTML = `
-                <div class="delivery-item text-center">
-                    <p>Selecione um estado para ver as informações de entrega.</p>
-                </div>`;
+                    mostrarInformacoesEstado(selectedState);
+                }
+            });
         }
     }
-});
 
-    // Função para mostrar informações do estado selecionado
+    // Exibe as informações de entrega para o estado selecionado
     function mostrarInformacoesEstado(sigla) {
         const stateInfoTitle = document.querySelector('.state-name');
         const deliveryInfo = document.getElementById('deliveryInfo');
         
-        // Remover classe de seleção de todos os estados
-        document.querySelectorAll('.state').forEach(el => {
-            el.classList.remove('estado-selecionado');
-            el.removeAttribute('style');
+        document.querySelectorAll('.state').forEach(estado => {
+            estado.classList.remove('estado-selecionado');
         });
         
-        // Adicionar classe de seleção ao estado clicado
         const estadoSelecionado = document.getElementById(sigla);
         if (estadoSelecionado) {
             estadoSelecionado.classList.add('estado-selecionado');
         }
         
-        // Atualizar o título com o nome do estado
         stateInfoTitle.textContent = nomeEstados[sigla];
-        
-        // Limpar informações anteriores (incluindo a mensagem padrão)
         deliveryInfo.innerHTML = '';
         
-        // Verificar se o estado tem entrega
         if (estadosComEntrega[sigla]) {
-            // Mostrar informações de prazo de entrega
             const prazo = prazoEntrega[sigla];
-            
-            // Criar elemento para prazo da capital
-            const capitalElement = document.createElement('div');
-            capitalElement.className = 'delivery-item';
-            capitalElement.innerHTML = `
-                <h5>${sigla === 'PA' ? 'BELÉM (E REGIÃO)' : sigla === 'DF' ? 'BRASÍLIA' : 'CAPITAL'}</h5>
-                <p><i class="fas fa-clock me-2"></i>${prazo.capital}</p>
-            `;
-            deliveryInfo.appendChild(capitalElement);
-            
-            // Criar elemento para prazo do interior (exceto para PA que só tem capital)
-            if (sigla !== 'PA') {
-                const interiorElement = document.createElement('div');
-                interiorElement.className = 'delivery-item';
-                interiorElement.innerHTML = `
-                    <h5>INTERIOR</h5>
-                    <p><i class="fas fa-clock me-2"></i>${prazo.interior}</p>
+            if (prazo) {
+                deliveryInfo.innerHTML = `
+                    <div class="delivery-item">
+                        <h5>Capital</h5>
+                        <p><i class="fas fa-clock"></i> ${prazo.capital}</p>
+                    </div>
+                    <div class="delivery-item">
+                        <h5>Interior</h5>
+                        <p><i class="fas fa-clock"></i> ${prazo.interior}</p>
+                    </div>
                 `;
-                deliveryInfo.appendChild(interiorElement);
             }
-            
-            // Animar os novos elementos
-            const deliveryItems = deliveryInfo.querySelectorAll('.delivery-item');
-            deliveryItems.forEach((item, index) => {
-                item.style.opacity = '0';
-                item.style.transform = 'translateY(20px)';
-                
-                setTimeout(() => {
-                    item.style.transition = 'all 0.3s ease-out';
-                    item.style.opacity = '1';
-                    item.style.transform = 'translateY(0)';
-                }, 100 * index);
-            });
         } else {
-            // Mostrar mensagem de não entrega
-            const noDeliveryElement = document.createElement('div');
-            noDeliveryElement.className = 'no-delivery-message';
-            noDeliveryElement.textContent = 'Não realizamos entrega neste estado';
-            deliveryInfo.appendChild(noDeliveryElement);
+            deliveryInfo.innerHTML = `
+                <div class="delivery-item text-center">
+                    <p class="no-delivery-message">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Não realizamos entregas neste estado.</span>
+                    </p>
+                </div>
+            `;
+        }
+
+        // Mostra informações extras para estados específicos (com bases)
+        const estadosComInfo = ['PR', 'SP', 'SC', 'BA'];
+        const stateExtraInfo = document.getElementById('stateExtraInfo');
+        const allStateDetails = document.querySelectorAll('.state-details');
+        
+        if (estadosComInfo.includes(sigla)) {
+            stateExtraInfo.classList.remove('d-none');
+            allStateDetails.forEach(detail => detail.style.display = 'none'); // Esconde todos
             
-            // Animar o elemento
-            noDeliveryElement.style.opacity = '0';
-            noDeliveryElement.style.transform = 'translateY(20px)';
-            
-            setTimeout(() => {
-                noDeliveryElement.style.transition = 'all 0.3s ease-out';
-                noDeliveryElement.style.opacity = '1';
-                noDeliveryElement.style.transform = 'translateY(0)';
-            }, 100);
+            const stateDetails = document.getElementById(`${sigla}-details`); // Mostra o correto
+            if (stateDetails) {
+                stateDetails.style.display = 'block';
+            }
+        } else {
+            stateExtraInfo.classList.add('d-none');
         }
     }
 
-    // Smooth Scroll for anchor links
+    // Rolagem suave para links âncora
     document.querySelectorAll('a[href^="#"], a[href^="http"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             // Verifica se o link é uma âncora interna
             if (this.getAttribute('href').startsWith('#')) {
-                e.preventDefault(); // Impede a ação padrão apenas para âncoras internas
+                e.preventDefault();
     
                 const target = document.querySelector(this.getAttribute('href'));
                 
                 if (target) {
-                    // Close mobile menu if open
+                    // Fecha o menu mobile (se estiver aberto) antes de rolar
                     const navbarCollapse = document.querySelector('.navbar-collapse');
                     if (navbarCollapse.classList.contains('show')) {
                         document.querySelector('.navbar-toggler').click();
                     }
                     
-                    // Smooth scroll to target
                     window.scrollTo({
                         top: target.offsetTop - 80,
                         behavior: 'smooth'
                     });
                     
-                    // Update active nav link
                     document.querySelectorAll('.nav-link').forEach(link => {
                         link.classList.remove('active');
                     });
@@ -435,7 +295,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Back to Top Button
+    // Botão "Voltar ao Topo"
     const backToTop = document.querySelector('.back-to-top');
     
     window.addEventListener('scroll', () => {
@@ -454,14 +314,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Form Validation and Submission
+    // Validação e envio do formulário de contato
     const contactForm = document.getElementById('contactForm');
     
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Basic form validation
             let isValid = true;
             const formElements = this.elements;
             
@@ -477,19 +336,19 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             if (isValid) {
-                // Show loading state
                 const button = this.querySelector('button[type="submit"]');
                 const originalText = button.innerHTML;
                 
+                // Mostra um feedback de carregamento no botão
                 button.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Enviando...';
                 button.disabled = true;
                 
-                // Simulate form submission (replace with actual form submission in production)
+                // Simula o envio do formulário (substituir pela lógica de envio real)
                 setTimeout(() => {
                     button.innerHTML = '<i class="fas fa-check me-2"></i>Mensagem Enviada!';
                     button.classList.add('btn-success');
                     
-                    // Reset form after success
+                    // Reseta o formulário após o sucesso
                     setTimeout(() => {
                         this.reset();
                         button.innerHTML = originalText;
@@ -500,7 +359,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Real-time validation feedback
+        // Feedback de validação em tempo real ao sair do campo
         const formInputs = contactForm.querySelectorAll('input, textarea, select');
         
         formInputs.forEach(input => {
@@ -520,59 +379,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Rastreador Rápido
-    const trackerForm = document.getElementById('trackerForm');
-    const trackingStatus = document.getElementById('trackingStatus');
-    
-    if (trackerForm) {
-        trackerForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const input = this.querySelector('input');
-            const button = this.querySelector('button');
-            const originalIcon = button.innerHTML;
-            
-            if (!input.value.trim()) {
-                input.classList.add('is-invalid');
-                return;
-            }
-            
-            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-            button.disabled = true;
-            input.disabled = true;
-            
-            // Simular rastreamento (em produção, isso seria uma chamada de API real)
-            setTimeout(() => {
-                button.innerHTML = '<i class="fas fa-check"></i>';
-                
-                // Mostrar resultado do rastreamento
-                if (trackingStatus) {
-                    trackingStatus.classList.remove('d-none');
-                    
-                    // Gerar um status aleatório para demonstração
-                    const statusOptions = [
-                        { status: 'Em trânsito', location: 'Centro de Distribuição - São Paulo' },
-                        { status: 'Saiu para entrega', location: 'Unidade local - Destino' },
-                        { status: 'Aguardando retirada', location: 'Ponto de coleta - Destino' },
-                        { status: 'Em processamento', location: 'Centro de Triagem' }
-                    ];
-                    
-                    const randomStatus = statusOptions[Math.floor(Math.random() * statusOptions.length)];
-                    
-                    trackingStatus.querySelector('.tracking-status').textContent = randomStatus.status;
-                    trackingStatus.querySelector('.tracking-location').textContent = randomStatus.location;
-                }
-                
-                setTimeout(() => {
-                    button.innerHTML = originalIcon;
-                    button.disabled = false;
-                    input.disabled = false;
-                }, 3000);
-            }, 1500);
-        });
-    }
-
-    // Solution Cards Hover Effect
+    // Efeito de hover nos cards de solução
     const solutionCards = document.querySelectorAll('.solution-card');
     
     solutionCards.forEach(card => {
@@ -587,7 +394,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Navbar Active Link Update on Scroll
+    // Atualiza o link ativo na barra de navegação conforme a rolagem da página
     const sections = document.querySelectorAll('section[id]');
     
     function updateNavActiveState() {
@@ -609,11 +416,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     window.addEventListener('scroll', updateNavActiveState);
-    
-    // Initialize active state
-    updateNavActiveState();
+    updateNavActiveState(); // Garante o estado ativo no carregamento da página
 
-    // Mobile Menu Toggle Animation
+    // Animação do botão do menu mobile
     const navbarToggler = document.querySelector('.navbar-toggler');
     
     if (navbarToggler) {
@@ -621,4 +426,150 @@ document.addEventListener('DOMContentLoaded', function() {
             this.classList.toggle('active');
         });
     }
+
+    // Garante que a página carregue no topo
+    if (history.scrollRestoration) {
+        history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+
+    // Slideshow da seção principal
+    function initHeroSlideshow() {
+        const slides = document.querySelectorAll('.hero-slideshow .slide');
+        let currentSlide = 0;
+        
+        function showSlide(index) {
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+                slide.style.opacity = '0';
+            });
+            
+            slides[index].classList.add('active');
+            slides[index].style.opacity = '1';
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+        
+        if (slides.length > 0) {
+            showSlide(0);
+            setInterval(nextSlide, 3000);
+        }
+    }
+
+    initHeroSlideshow();
 });
+
+// Carrossel de imagens para a seção de Logística
+document.addEventListener('DOMContentLoaded', function() {
+    const logisticaCarousel = document.querySelector('.logistica-carousel');
+    const carouselInner = document.querySelector('.logistica-carousel-inner');
+    const prevBtn = document.querySelector('.logistica-carousel-prev');
+    const nextBtn = document.querySelector('.logistica-carousel-next');
+    
+    if (!logisticaCarousel || !carouselInner || !prevBtn || !nextBtn) {
+        return;
+    }
+    
+    let currentIndex = 0;
+    const slides = carouselInner.querySelectorAll('.logistica-carousel-item');
+    const totalSlides = slides.length;
+    
+    // Cria os indicadores de slide dinamicamente
+    const indicatorsContainer = document.querySelector('.logistica-carousel-indicators');
+    indicatorsContainer.innerHTML = ''; 
+    for (let i = 0; i < totalSlides; i++) {
+        const indicator = document.createElement('div');
+        indicator.className = 'logistica-carousel-indicator';
+        if (i === 0) indicator.classList.add('active');
+        indicator.addEventListener('click', () => {
+            currentIndex = i;
+            updateCarousel();
+        });
+        indicatorsContainer.appendChild(indicator);
+    }
+    
+    if (totalSlides === 0) {
+        return;
+    }
+    
+    updateCarousel();
+    
+    prevBtn.addEventListener('click', function() {
+        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        updateCarousel();
+    });
+    
+    nextBtn.addEventListener('click', function() {
+        currentIndex = (currentIndex + 1) % totalSlides;
+        updateCarousel();
+    });
+    
+    function updateCarousel() {
+        const slides = carouselInner.querySelectorAll('.logistica-carousel-item');
+        
+        slides.forEach((slide) => {
+            slide.classList.remove('active');
+            slide.style.display = 'none';
+            slide.style.animation = 'none';
+        });
+        
+        slides[currentIndex].classList.add('active');
+        slides[currentIndex].style.display = 'block';
+        slides[currentIndex].style.animation = 'fadeIn 0.5s ease-in-out';
+        
+        document.querySelectorAll('.logistica-carousel-indicator').forEach((indicator, index) => {
+            indicator.classList.toggle('active', index === currentIndex);
+        });
+    }
+    
+    // Suporte a swipe em dispositivos móveis
+    let touchStartX = 0;
+    carouselInner.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
+    carouselInner.addEventListener('touchend', (e) => {
+        if (e.changedTouches[0].screenX < touchStartX) nextBtn.click();
+        else if (e.changedTouches[0].screenX > touchStartX) prevBtn.click();
+    });
+
+    // Autoplay do carrossel
+    let autoplayInterval;
+    const startAutoplay = () => { autoplayInterval = setInterval(() => nextBtn.click(), 5000); };
+    const stopAutoplay = () => { clearInterval(autoplayInterval); };
+
+    startAutoplay();
+    logisticaCarousel.addEventListener('mouseenter', stopAutoplay);
+    logisticaCarousel.addEventListener('touchstart', stopAutoplay);
+    logisticaCarousel.addEventListener('mouseleave', startAutoplay);
+});
+
+// Configura os seletores de bases de cada estado
+function setupBaseSelectors() {
+    function setupSelect(selectId, stateId) {
+        const select = document.getElementById(selectId);
+        if (select) {
+            select.addEventListener('change', function() {
+                document.querySelectorAll(`#${stateId}-details .base-info`).forEach(info => {
+                    info.classList.add('d-none');
+                });
+                
+                const selectedBase = this.value;
+                if (selectedBase) {
+                    const baseInfo = document.getElementById(`${selectedBase}-info`);
+                    if (baseInfo) {
+                        baseInfo.classList.remove('d-none');
+                    }
+                }
+            });
+        }
+    }
+
+    // Configura os selects para cada estado com bases
+    setupSelect('prBaseSelect', 'PR');
+    setupSelect('spBaseSelect', 'SP');
+    setupSelect('scBaseSelect', 'SC');
+    setupSelect('baBaseSelect', 'BA');
+}
+
+document.addEventListener('DOMContentLoaded', setupBaseSelectors);

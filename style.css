@@ -1,5 +1,5 @@
 :root {
-    --primary-color: #006e85;
+    --primary-color: #0d344f;
     --primary-dark: #164863;
     --primary-light: #009693;
     --secondary-color: #0D47A1;
@@ -202,9 +202,10 @@ a:hover {
     left: 0;
     width: 100%;
     z-index: 1000;
-    transition: var(--transition);
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
     padding: 20px 0;
     background: transparent;
+    will-change: transform;
 }
 
 .header-scrolled {
@@ -232,7 +233,7 @@ a:hover {
 .nav-link {
     color: var(--text-light) !important;
     font-weight: 600;
-    padding: 8px 16px !important;
+    padding: 8px !important;
     position: relative;
     transition: var(--transition);
     font-size: 0.95rem;
@@ -250,7 +251,7 @@ a:hover {
     left: 50%;
     width: 0;
     height: 2px;
-    background: var(--primary-color);
+    background: var(--gray-dark);
     transition: var(--transition);
     transform: translateX(-50%);
 }
@@ -313,7 +314,7 @@ a:hover {
 .hero {
     position: relative;
     min-height: 20vh;
-    padding: 130px 0 200px; /* Aumentado o padding bottom */
+    padding: 130px 0 200px;
     background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
     overflow: hidden;
     display: flex;
@@ -342,7 +343,7 @@ a:hover {
 
 .hero p {
     color: rgba(255, 255, 255, 0.9);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     margin-bottom: 2rem;
 }
 
@@ -356,21 +357,21 @@ a:hover {
 
 .hero-image {
     position: relative;
-    animation: float 6s ease-in-out infinite;
     max-width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin: 0 auto;
 }
 
 .hero-image img {
-    width: 100%;
+    width: auto;
+    max-width: 100%;
     height: auto;
+    max-height: 400px;
+    object-fit: contain;
     filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.15));
-}
-
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-    100% { transform: translateY(0px); }
 }
 
 .hero-wave {
@@ -515,9 +516,18 @@ a:hover {
 }
 
 .about-section {
-    padding: 100px 0;
+    padding: 100px 0px 20px 0px;
     background-color: var(--text-light);
     position: relative;
+}
+
+.about-section .section-title {
+    margin-bottom: 60px;
+}
+
+.about-section .section-title h2:after {
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .about-image {
@@ -529,6 +539,12 @@ a:hover {
     width: 100%;
     border-radius: var(--border-radius-lg);
     box-shadow: var(--box-shadow);
+    transition: var(--transition);
+}
+
+.about-image:hover img {
+    transform: scale(1.02);
+    box-shadow: var(--box-shadow-hover);
 }
 
 .experience-badge {
@@ -567,6 +583,133 @@ a:hover {
     100% { transform: scale(1); }
 }
 
+.mission-vision-values {
+    margin-top: 50px;
+}
+
+.mvv-card {
+    background-color: var(--text-light);
+    padding: 40px 30px;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    transition: var(--transition);
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    border-top: 5px solid transparent;
+}
+
+.mvv-card:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    opacity: 0;
+    transition: var(--transition);
+    z-index: -1;
+}
+
+.mvv-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--box-shadow-hover);
+    border-top: 5px solid var(--primary-color);
+}
+
+.mvv-card:hover:before {
+    opacity: 0.03;
+}
+
+.mvv-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+    transition: var(--transition);
+}
+
+.mvv-icon i {
+    font-size: 35px;
+    color: var(--primary-color);
+    transition: var(--transition);
+}
+
+.mvv-card:hover .mvv-icon {
+    background: var(--primary-color);
+    transition: transform 0.8s;
+}
+
+.mvv-card:hover .mvv-icon i {
+    color: var(--text-light);
+}
+
+.mvv-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: var(--primary-dark);
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.mvv-card h3:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: var(--primary-light);
+}
+
+.mvv-card p {
+    color: var(--gray-dark);
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+.values-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+.values-list li {
+    position: relative;
+    padding: 8px 0 8px 30px;
+    color: var(--gray-dark);
+    font-size: 1.05rem;
+    border-bottom: 1px dashed var(--gray-light);
+}
+
+.values-list li:last-child {
+    border-bottom: none;
+}
+
+.values-list li:before {
+    content: '\f00c';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-color);
+}
+
+.values-list li span {
+    font-weight: 500;
+}
+
 .features-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -590,6 +733,56 @@ a:hover {
     color: var(--gray-dark);
 }
 
+.certifications-section {
+    padding: 10px 0px 80px 0px;
+    background-color: var(--accent-light);
+}
+
+.certification-card {
+    background: var(--primary-dark);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    transition: all 0.3s ease;
+    height: 100%;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.certification-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    background: var(--primary-color);
+}
+
+.certification-card h3 {
+    color: var(--text-light);
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.certification-card p {
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.certification-icon {
+    margin-bottom: 20px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--text-light);
+    border-radius: var(--border-radius);
+    padding: 15px;
+}
+
+.certification-icon img {
+    max-height: 100px;
+    object-fit: contain;
+}
+
 .areas-section {
     padding: 100px 0;
     background-color: var(--accent-color);
@@ -605,26 +798,21 @@ a:hover {
 }
 
 .brazil-map {
-    text-align: center;
-    margin-bottom: 30px;
     position: relative;
     width: 100%;
     max-width: 500px;
     margin: 0 auto;
 }
 
-.brazil-map img {
-    max-width: 100%;
-    height: auto;
-    border-radius: var(--border-radius);
+.location-point {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    z-index: 2;
+    transition: all 0.3s ease;
+    pointer-events: none;
 }
 
-.brazil-map svg {
-    width: 100%;
-    height: auto;
-}
-
-/* Estilos dos estados no mapa */
 .estado, .state {
     cursor: pointer;
     transition: all 0.3s ease;
@@ -642,7 +830,6 @@ a:hover {
     transition: all 0.3s ease !important;
 }
 
-/* Estado selecionado */
 .estado-selecionado {
     fill: var(--primary-color) !important;
     position: relative;
@@ -650,22 +837,16 @@ a:hover {
     pointer-events: none;
 }
 
-.state-selector {
-    background-color: var(--text-light);
+.area-nao-estado {
+    pointer-events: none;
+    fill: var(--accent-light) !important;
+    opacity: 0.5;
 }
 
-.form-select, .form-control {
-    border: 1px solid var(--gray-light);
-    border-radius: var(--border-radius);
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    color: var(--text-dark);
-    transition: var(--transition);
-}
-
-.form-select:focus, .form-control:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 0.25rem rgba(30, 136, 229, 0.25);
+.area-nao-estado:hover {
+    cursor: default;
+    fill: var(--accent-light) !important;
+    opacity: 0.5;
 }
 
 .state-info-display {
@@ -693,6 +874,30 @@ a:hover {
     font-weight: 700;
     border-bottom: 2px solid #f0f0f0;
     padding-bottom: 15px;
+}
+
+.state-selector {
+    position: relative;
+    z-index: 2;
+}
+
+.state-selector .form-select {
+    border: 1px solid var(--gray-light);
+    border-radius: var(--border-radius);
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    color: var(--text-dark);
+    transition: var(--transition);
+    background-color: var(--text-light);
+}
+
+.state-selector .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(30, 136, 229, 0.25);
+}
+
+.state-selector .form-select option {
+    padding: 10px;
 }
 
 .delivery-info {
@@ -747,11 +952,116 @@ a:hover {
 }
 
 .no-delivery-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     font-size: 1.1rem;
     color: var(--danger);
     font-weight: 600;
-    text-align: center;
-    margin-top: 30px;
+    margin: 0;
+}
+
+.no-delivery-message i {
+    font-size: 1.2rem;
+}
+
+.state-extra-info {
+    margin-top: 2rem;
+}
+
+.state-details {
+    display: none;
+    animation: fadeInBases 0.5s ease-in-out;
+}
+
+.base-selector {
+    margin-bottom: 2rem;
+}
+
+.base-info {
+    transition: all 0.3s ease;
+}
+
+.base-info .info-card {
+    background: var(--accent-light);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    text-align: left;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.base-info .info-card h4 {
+    color: var(--primary-dark);
+    margin-bottom: 0;
+    font-size: 1.25rem;
+}
+
+.base-info .info-card p {
+    color: var(--gray-dark);
+    margin-bottom: 1rem;
+    line-height: 1.7;
+}
+
+.base-info .info-card .contact-info p {
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.base-info .info-card .contact-info p:last-child {
+    margin-bottom: 0;
+}
+
+.img-container-2-1 {
+    overflow: hidden;
+    position: relative;
+    height: 0;
+    padding-bottom: 50%;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.img-container-2-1 img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.map-responsive {
+    overflow: hidden;
+    position: relative;
+    height: 0;
+    padding-bottom: 50%;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.map-responsive iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+@keyframes fadeInBases {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .solutions-section {
@@ -891,7 +1201,179 @@ a:hover {
     transform: scale(1);
 }
 
-/* CTA Section */
+.logistica-section {
+    padding: 80px 0;
+    background-color: var(--text-light);
+    position: relative;
+    overflow: hidden;
+}
+
+#logistica .section-title.text-lg-start h2:after {
+    left: 0;
+    transform: translateX(0);
+    margin-bottom: 5px;
+}
+
+.logistica-info-col {
+    position: relative;
+    z-index: 1;
+}
+
+.logistica-info-col::before {
+    content: "";
+    position: absolute;
+    top: -50px;
+    left: -80px;
+    width: 250px;
+    height: 250px;
+    background-color: var(--accent-color);
+    border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%;
+    opacity: 0.6;
+    z-index: -1;
+    transform: rotate(-15deg);
+    filter: blur(10px);
+}
+
+.logistica-info-col .section-description {
+    font-size: 1.05rem;
+    color: var(--gray-dark);
+}
+
+.logistica-destaques {
+    padding-left: 0;
+    margin-top: 25px;
+    max-width: 450px;
+}
+
+.logistica-destaques li {
+    font-size: 1rem;
+    color: var(--text-dark);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: flex-start;
+    line-height: 1.5;
+}
+
+.logistica-destaques li i {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    margin-right: 15px;
+    width: 22px;
+    text-align: center;
+    margin-top: 2px;
+}
+
+.logistica-carousel {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--box-shadow);
+    overflow: hidden;
+}
+
+.logistica-carousel-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.logistica-carousel-item {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.6s ease-in-out, visibility 0.6s ease-in-out, transform 0.6s ease-in-out;
+    transform: scale(1.1);
+}
+
+.logistica-carousel-item.active {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+.logistica-carousel-item.slide-out {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.9);
+}
+
+.logistica-carousel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform-origin: center center;
+}
+
+.logistica-carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 45px;
+    height: 45px;
+    background: rgba(13, 52, 79, 0.8);
+    border: none;
+    border-radius: 50%;
+    color: var(--text-light);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    z-index: 10;
+    opacity: 0;
+}
+
+.logistica-carousel:hover .logistica-carousel-btn {
+    opacity: 1;
+}
+
+.logistica-carousel-btn:hover {
+    background: var(--primary-color);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 0 15px rgba(13, 52, 79, 0.4);
+}
+
+.logistica-carousel-prev {
+    left: -50px;
+    transition: left 0.3s ease, opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+}
+
+.logistica-carousel-next {
+    right: -50px;
+    transition: right 0.3s ease, opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+}
+
+.logistica-carousel:hover .logistica-carousel-prev {
+    left: 20px;
+}
+
+.logistica-carousel:hover .logistica-carousel-next {
+    right: 20px;
+}
+
+.logistica-carousel-indicator {
+    width: 10px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logistica-carousel-indicator.active {
+    background: var(--text-light);
+    transform: scale(1.3);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
 .cta-section {
     padding: 80px 0;
     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
@@ -925,7 +1407,6 @@ a:hover {
     color: rgba(255, 255, 255, 0.9);
 }
 
-/* Contact Section */
 .contact-section {
     padding: 100px 0;
     background-color: var(--accent-light);
@@ -937,13 +1418,12 @@ a:hover {
 }
 
 .info-card {
-    background-color: var(--text-light);
-    padding: 30px;
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--box-shadow);
-    margin-bottom: 20px;
-    transition: var(--transition);
+    background: var(--accent-light);
+    padding: 2rem;
+    border-radius: var(--border-radius);
     text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
 .info-card:hover {
@@ -953,7 +1433,7 @@ a:hover {
 
 .info-card i {
     font-size: 32px;
-    color: var(--primary-color);
+    color: var(--primary-color) !important;
     margin-bottom: 20px;
 }
 
@@ -964,8 +1444,27 @@ a:hover {
 }
 
 .info-card p {
-    margin-bottom: 0;
+    margin-bottom: 0px !important;
     color: var(--gray-dark);
+}
+
+.info-card.map-card {
+    padding: 0;
+    overflow: hidden;
+    max-height: 250px;
+}
+
+.info-card.map-card iframe {
+    display: block;
+    width: 100%;
+    padding: 0px 0px !important;
+    border: none;
+    pointer-events: none;
+    transition: var(--transition);
+}
+
+.info-card.map-card:hover iframe {
+    pointer-events: all;
 }
 
 .social-links {
@@ -1013,7 +1512,6 @@ a:hover {
     padding: 1rem 0.75rem;
 }
 
-/* Footer */
 .footer-section {
     background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
     color: var(--text-light);
@@ -1036,46 +1534,7 @@ a:hover {
     margin-bottom: 20px;
 }
 
-.footer-links h4 {
-    margin-bottom: 25px;
-    position: relative;
-    padding-bottom: 10px;
-    color: var(--text-light);
-    font-size: 1.3rem;
-}
-
-.footer-links h4::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 30px;
-    height: 2px;
-    background-color: var(--accent-color);
-}
-
-.footer-links ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.footer-links ul li {
-    margin-bottom: 15px;
-}
-
-.footer-links ul li a {
-    color: rgba(255, 255, 255, 0.8);
-    text-decoration: none;
-    transition: var(--transition);
-    display: inline-block;
-}
-
-.footer-links ul li a:hover {
-    color: var(--text-light);
-    padding-left: 10px;
-}
-
+.footer-links h4,
 .footer-coverage h4 {
     margin-bottom: 25px;
     position: relative;
@@ -1084,6 +1543,7 @@ a:hover {
     font-size: 1.3rem;
 }
 
+.footer-links h4::after,
 .footer-coverage h4::after {
     content: '';
     position: absolute;
@@ -1094,67 +1554,35 @@ a:hover {
     background-color: var(--accent-color);
 }
 
-.footer-coverage p {
-    color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 20px;
+.footer-links ul,
+.footer-coverage ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-.coverage-map {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: var(--border-radius);
-    padding: 15px;
-    height: 120px;
-    position: relative;
-    overflow: hidden;
+.footer-links ul li,
+.footer-coverage ul li {
     margin-bottom: 15px;
 }
 
-.road-animation {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.footer-links ul li a,
+.footer-coverage ul li a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: var(--transition);
+    display: inline-block;
 }
 
-.road {
-    position: relative;
-    width: 90%;
-    height: 30px;
-    background-color: var(--primary-dark);
-    border-radius: 15px;
-    overflow: hidden;
-}
-
-.road-line {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: repeating-linear-gradient(90deg, 
-        var(--gray-dark), 
-        var(--gray-dark) 20px, 
-        transparent 20px, 
-        transparent 40px);
-    transform: translateY(-50%);
-}
-
-.static-line {
-    animation: none !important;
-    background-position: 0 0 !important;
-}
-
-.truck-icon {
-    position: absolute;
+.footer-links ul li a:hover,
+.footer-coverage ul li a:hover {
     color: var(--text-light);
-    font-size: 24px;
-    top: 50%;
-    opacity: 0;
-    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.3));
-    z-index: 2;
-    animation: truckMove 6s infinite linear;
+    padding-left: 10px;
+}
+
+.footer-coverage p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 20px;
 }
 
 .coverage-stats {
@@ -1173,39 +1601,6 @@ a:hover {
 .stat-item i {
     color: var(--accent-color);
     font-size: 16px;
-}
-
-@keyframes truckMove {
-    0% { 
-        left: -5%; 
-        opacity: 0;
-        transform: translateY(-50%);
-    }
-    10% {
-        left: 5%;
-        opacity: 0.3;
-        transform: translateY(-50%);
-    }
-    20% {
-        left: 15%;
-        opacity: 1;
-        transform: translateY(-50%);
-    }
-    70% { 
-        left: 75%;
-        opacity: 1;
-        transform: translateY(-50%);
-    }
-    85% {
-        left: 85%;
-        opacity: 0.3;
-        transform: translateY(-50%);
-    }
-    100% { 
-        left: 105%; 
-        opacity: 0;
-        transform: translateY(-50%);
-    }
 }
 
 .footer-bottom {
@@ -1251,6 +1646,38 @@ a:hover {
     transform: translateY(-5px);
 }
 
+[data-aos] {
+    pointer-events: none;
+}
+
+[data-aos].aos-animate {
+    pointer-events: auto;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--accent-light);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-light);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-light) var(--accent-light);
+}
+
+/* Ajuste Responsividade */
+
 @media (max-width: 1199.98px) {
     .hero h1 {
         font-size: 2.5rem;
@@ -1275,6 +1702,9 @@ a:hover {
         padding-top: -40px;
         padding-bottom: 180px;
     }
+    .hero-image {
+        height: 400px;
+    }
 }
 
 @media (max-width: 991.98px) {
@@ -1286,22 +1716,20 @@ a:hover {
         margin-top: 15px;
     }
 
-@media (max-width: 768px) {
- .hero-wave {
-    bottom: -20px; /* Ajuste a posição para telas menores */
-    }
-}   
-
     .nav-link {
         color: var(--text-dark) !important;
     }
     
     .hero {
-        padding: 130px 0 150px; /* Menos padding para telas menores */
+        padding: 130px 0 150px;
     }
     
     .hero-image {
         margin-top: 50px;
+    }
+
+    .hero-image img {
+        max-height: 300px;
     }
     
     .features-grid {
@@ -1312,6 +1740,15 @@ a:hover {
         grid-template-columns: repeat(2, 1fr);
     }
     
+    .logistica-info-col {
+         margin-bottom: 40px;
+    }
+
+    #logistica .section-title.text-center h2:after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
     .info-card {
         padding: 20px;
     }
@@ -1338,7 +1775,15 @@ a:hover {
     .hero {
         padding: 120px 0 140px;
     }
+
+    .hero-image img {
+        max-height: 250px;
+    }
     
+    .hero-wave {
+        bottom: -20px;
+    }  
+
     .section-title h2 {
         font-size: 1.8rem;
     }
@@ -1351,6 +1796,18 @@ a:hover {
         grid-template-columns: 1fr;
     }
     
+    .certification-card {
+        padding: 20px;
+    }
+
+    .certification-icon {
+        height: 100px;
+    }
+
+    .certification-icon img {
+        max-height: 80px;
+    }
+
     .cta-section h2 {
         font-size: 1.8rem;
         margin-bottom: 20px;
@@ -1403,7 +1860,26 @@ a:hover {
     }
 }
 
-/* Ajustes para telas maiores */
+@media (max-width: 500px) {
+    .location-point {
+        width: 16px;
+        height: 16px;
+    }
+
+    .brazil-map {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    #location-points {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+}
+
 @media (min-width: 1367px) {
     .container {
         max-width: 1320px;
@@ -1423,7 +1899,11 @@ a:hover {
     }
 
     .hero p {
-        font-size: 1.3rem;
+        font-size: 1.5rem;
+    }
+
+    .hero-image img {
+        max-height: 450px;
     }
 
     .section-title h2 {
@@ -1471,6 +1951,10 @@ a:hover {
     .hero h1 {
         font-size: 4rem;
     }
+    
+    .hero-image img {
+        max-height: 500px;
+    }
 
     .section-title h2 {
         font-size: 3.5rem;
@@ -1489,37 +1973,160 @@ a:hover {
     .hero {
         padding: 220px 0 400px;
     }
+    
+    .hero-image img {
+        max-height: 600px;
+    }
 }
 
-/* Animations */
-[data-aos] {
-    pointer-events: none;
+@media (min-width: 2560px) {
+    .container {
+        max-width: 2200px;
+    }
+
+    html {
+        font-size: 21px;
+    }
+
+    .hero {
+        padding: 250px 0 450px;
+    }
+
+    .hero h1 {
+        font-size: 4.5rem;
+    }
+
+    .hero p {
+        font-size: 1.7rem;
+    }
+
+    .hero-image img {
+        max-height: 600px;
+    }
+    
+    .section-title h2 {
+        font-size: 4rem;
+    }
+
+    .feature-card, 
+    .solution-card {
+        padding: 60px 50px;
+    }
+
+    .counter-box {
+        padding: 50px 40px;
+    }
+
+    .counter {
+        font-size: 3.5rem;
+    }
+
+    .counter-box p {
+        font-size: 1.4rem;
+    }
+
+    .contact-form-card {
+        padding: 60px;
+    }
+
+    .map-container {
+        padding: 50px;
+    }
+
+    .brazil-map {
+        max-width: 700px;
+    }
+
+    .state-info-display {
+        min-height: 400px;
+    }
+
+    .delivery-item {
+        padding: 20px 25px;
+    }
+
+    .delivery-item h5 {
+        font-size: 1.3rem;
+    }
+
+    .logistica-carousel {
+        aspect-ratio: 21/9;
+    }
 }
 
-[data-aos].aos-animate {
-    pointer-events: auto;
-}
+@media (min-width: 3840px) {
+    .container {
+        max-width: 3400px;
+    }
 
-/* Scrollbar Styling */
-::-webkit-scrollbar {
-    width: 10px;
-}
+    html {
+        font-size: 24px;
+    }
 
-::-webkit-scrollbar-track {
-    background: var(--accent-light);
-}
+    .hero {
+        padding: 300px 0 500px;
+    }
 
-::-webkit-scrollbar-thumb {
-    background: var(--primary-light);
-    border-radius: 10px;
-}
+    .hero h1 {
+        font-size: 5rem;
+    }
 
-::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-color);
-}
+    .hero p {
+        font-size: 1.9rem;
+    }
 
-/* For Firefox */
-* {
-    scrollbar-width: thin;
-    scrollbar-color: var(--primary-light) var(--accent-light);
+    .section-title h2 {
+        font-size: 4.5rem;
+    }
+
+    .feature-card, 
+    .solution-card {
+        padding: 80px 60px;
+    }
+
+    .counter-box {
+        padding: 60px 50px;
+    }
+
+    .counter {
+        font-size: 4rem;
+    }
+
+    .counter-box p {
+        font-size: 1.6rem;
+    }
+
+    .contact-form-card {
+        padding: 80px;
+    }
+
+    .map-container {
+        padding: 60px;
+    }
+
+    .brazil-map {
+        max-width: 900px;
+    }
+
+    .state-info-display {
+        min-height: 500px;
+    }
+
+    .delivery-item {
+        padding: 25px 30px;
+    }
+
+    .delivery-item h5 {
+        font-size: 1.5rem;
+    }
+
+    .logistica-carousel {
+        aspect-ratio: 21/9;
+    }
+
+    .logistica-carousel-btn {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
 }

@@ -8,12 +8,19 @@
             fill: #D3DEE2;
         }
 
-            .state:hover {
-                fill: #FCAF17;
-                transition: 0.1s linear;
-            }
+        .state:hover {
+            fill: #FCAF17;
+            transition: 0.1s linear;
+        }
     </style>
-<g>
+    
+    <defs>
+        <symbol id="map-marker" viewBox="0 0 24 24">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zM12 11.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" 
+                  fill="#B20000"/>
+        </symbol>
+    </defs>
+    <g>
     <polygon fill="#F3F3F3" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
         319.646,163.646 319.099,164.092 320.047,163.646 320.246,163.147 319.696,162.899     "/>
     <g>
@@ -316,13 +323,13 @@
     <g>
         <polygon class="state" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
             211.845,27.945 212.012,28.675 212.343,28.741 212.776,29.967 213.642,30.1 214.606,28.807 213.575,26.619 213.275,26.619
-            213.275,26.984 212.178,27.448       "/>
+            213.275,26.984 212.178,27.448         "/>
         <polygon class="state" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
             212.012,26.885 212.144,27.282 213.008,26.917 212.976,26.52 212.109,26.222 211.645,26.719 211.744,26.885         "/>
         <polygon class="state" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
             215.406,29.835 215.205,29.371 215.006,29.636 215.306,29.967         "/>
         <polygon class="state" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
-            216.454,36.738 216.121,36.738 215.688,37.07 215.654,37.435 216.221,37.269       "/>
+            216.454,36.738 216.121,36.738 215.688,37.07 215.654,37.435 216.221,37.269         "/>
         <polygon class="state" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
             215.771,38.91 216.37,38.446 216.646,37.518 216.347,37.518 216.171,37.924 215.872,37.891 215.639,38.123      "/>
         <polygon class="state" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
@@ -369,7 +376,7 @@
         <polygon class="state" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
             207.268,47.687 206.568,48.73 206.568,49.079 209.116,47.438 209.116,46.245 207.816,46.891        "/>
         <polygon class="state" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
-            208.466,48.979 207.368,49.477 207.417,49.824 208.466,49.377         "/>
+            208.466,48.979 207.368,49.477 207.417,49.824 208.466,49.377          "/>
         <polygon class="state" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
             211.212,48.283 210.014,47.835 210.313,48.134        "/>
         <polygon class="state" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
@@ -519,5 +526,23 @@
             141.885,117.998 142.409,116.381 142.551,113.527 141.694,113.099 141.267,111.529 141.125,109.959 139.126,106.677
             139.839,104.393 142.123,103.537 154.967,76.565 157.108,70.571 159.676,67.574 161.817,63.864" />
     </g>
-</g>
+
+    <g id="pointer-locations">
+        <use href="#map-marker" x="312" y="148" width="12" height="10" />
+
+        <use href="#map-marker" x="210" y="235" width="10" height="10" />
+        <use href="#map-marker" x="217" y="232" width="10" height="10" />
+        <use href="#map-marker" x="240" y="255" width="10" height="10" />
+
+        <use href="#map-marker" x="205" y="260" width="10" height="10" />
+        <use href="#map-marker" x="195" y="258" width="10" height="10" />
+        <use href="#map-marker" x="220" y="272" width="10" height="10" />
+        <use href="#map-marker" x="210" y="271" width="10" height="10" />
+
+        <use href="#map-marker" x="222" y="296" width="10" height="9" />
+        <use href="#map-marker" x="217" y="309" width="10" height="8" />
+        <use href="#map-marker" x="220" y="303" width="10" height="8" />
+        <use href="#map-marker" x="220" y="288" width="10" height="10" />
+    </g>
+    </g>
 </svg>
